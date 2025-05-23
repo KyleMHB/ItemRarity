@@ -6,10 +6,12 @@ namespace ItemRarity.Config;
 /// <summary>
 /// Represents the configuration.
 /// </summary>
+using ItemRarity.Config; // Required for ToolkitConfig
+
 public sealed class ModConfig
 {
     public Dictionary<string, ItemRarityConfig> Rarities { get; init; } = new();
-    public List<ToolkitTierConfig> Toolkits { get; init; } = new();
+    public Dictionary<string, ToolkitConfig> Toolkits { get; init; } = new();
     
     public ItemRarityInfos this[string rarity]
     {
@@ -25,7 +27,7 @@ public sealed class ModConfig
 
     public static ModConfig GetDefaultConfig()
     {
-        var defaultConfig = new ModConfig
+        return new()
         {
             Rarities = new()
             {
@@ -156,95 +158,55 @@ public sealed class ModConfig
                     }
                 }
             },
-            Toolkits = new List<ToolkitTierConfig>
+            Toolkits = new()
             {
-                new ToolkitTierConfig
                 {
-                    TierName = "Stone Age Kit",
-                    OutputCode = "itemrarity:toolkit-tier1",
-                    ToolInputs = new List<ToolInput>
+                    "stone", new ToolkitConfig
                     {
-                        new ToolInput { ItemCode = "game:flint", Quantity = 5 },
-                        new ToolInput { ItemCode = "game:stone", Quantity = 10 }
-                    },
-                    PossibleRarities = new List<string> { "common", "uncommon" },
-                    RarityWeights = new Dictionary<string, float>
-                    {
-                        { "common", 75 },
-                        { "uncommon", 25 }
+                        Name = "Basic Flint Polishing Kit",
+                        Code = "toolkit-stone",
+                        Recipe = new RecipeDefinition
+                        {
+                            Pattern = new List<string> { "F" },
+                            Ingredients = new Dictionary<string, IngredientDefinition>
+                            {
+                                { "F", new IngredientDefinition { Type = "item", Code = "game:flint" } }
+                            },
+                            Output = new ItemOutputDefinition { Type = "item", Code = "itemrarity:toolkit-stone", Quantity = 1 }
+                        },
+                        RarityPool = new List<string> { "common", "uncommon" },
+                        RarityWeights = new Dictionary<string, float>
+                        {
+                            { "common", 0.7f },
+                            { "uncommon", 0.3f }
+                        }
                     }
                 },
-                new ToolkitTierConfig
                 {
-                    TierName = "Copper Age Kit",
-                    OutputCode = "itemrarity:toolkit-tier2",
-                    ToolInputs = new List<ToolInput>
+                    "copper", new ToolkitConfig
                     {
-                        new ToolInput { ItemCode = "game:ingot-copper", Quantity = 2 },
-                        new ToolInput { ItemCode = "game:resin", Quantity = 3 }
-                    },
-                    PossibleRarities = new List<string> { "uncommon", "rare" },
-                    RarityWeights = new Dictionary<string, float>
-                    {
-                        { "uncommon", 70 },
-                        { "rare", 30 }
-                    }
-                },
-                new ToolkitTierConfig
-                {
-                    TierName = "Bronze Age Kit",
-                    OutputCode = "itemrarity:toolkit-tier3",
-                    ToolInputs = new List<ToolInput>
-                    {
-                        new ToolInput { ItemCode = "game:ingot-bronze", Quantity = 2 },
-                        new ToolInput { ItemCode = "game:metalparts", Quantity = 4 }
-                    },
-                    PossibleRarities = new List<string> { "uncommon", "rare", "epic", "legendary" },
-                    RarityWeights = new Dictionary<string, float>
-                    {
-                        { "uncommon", 60 },
-                        { "rare", 25 },
-                        { "epic", 10 },
-                        { "legendary", 5 }
-                    }
-                },
-                new ToolkitTierConfig
-                {
-                    TierName = "Iron Age Kit",
-                    OutputCode = "itemrarity:toolkit-tier4",
-                    ToolInputs = new List<ToolInput>
-                    {
-                        new ToolInput { ItemCode = "game:ingot-iron", Quantity = 2 },
-                        new ToolInput { ItemCode = "game:metalparts", Quantity = 6 }
-                    },
-                    PossibleRarities = new List<string> { "rare", "epic", "legendary" },
-                    RarityWeights = new Dictionary<string, float>
-                    {
-                        { "rare", 60 },
-                        { "epic", 30 },
-                        { "legendary", 10 }
-                    }
-                },
-                new ToolkitTierConfig
-                {
-                    TierName = "Steel Age Kit",
-                    OutputCode = "itemrarity:toolkit-tier5",
-                    ToolInputs = new List<ToolInput>
-                    {
-                        new ToolInput { ItemCode = "game:ingot-steel", Quantity = 2 },
-                        new ToolInput { ItemCode = "game:gear-temporal", Quantity = 1 }
-                    },
-                    PossibleRarities = new List<string> { "rare", "epic", "legendary", "unique" },
-                    RarityWeights = new Dictionary<string, float>
-                    {
-                        { "rare", 50 },
-                        { "epic", 25 },
-                        { "legendary", 20 },
-                        { "unique", 5 }
+                        Name = "Copper Polishing Kit",
+                        Code = "toolkit-copper",
+                        Recipe = new RecipeDefinition
+                        {
+                            Pattern = new List<string> { "C", "S" },
+                            Ingredients = new Dictionary<string, IngredientDefinition>
+                            {
+                                { "C", new IngredientDefinition { Type = "item", Code = "game:ingot-copper" } },
+                                { "S", new IngredientDefinition { Type = "item", Code = "game:stick" } }
+                            },
+                            Output = new ItemOutputDefinition { Type = "item", Code = "itemrarity:toolkit-copper", Quantity = 1 }
+                        },
+                        RarityPool = new List<string> { "common", "uncommon", "rare" },
+                        RarityWeights = new Dictionary<string, float>
+                        {
+                            { "common", 0.5f },
+                            { "uncommon", 0.35f },
+                            { "rare", 0.15f }
+                        }
                     }
                 }
             }
         };
-        return defaultConfig;
     }
 }

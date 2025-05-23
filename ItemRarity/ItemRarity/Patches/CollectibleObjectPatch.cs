@@ -81,7 +81,7 @@ public static class CollectibleObjectPatch
         if (outputSlot is not { Itemstack: not null } || !Rarity.IsSuitableFor(outputSlot.Itemstack))
             return;
 
-        // Rarity.SetRandomRarity(outputSlot.Itemstack);
+        // Rarity.SetRandomRarity(outputSlot.Itemstack); // Removed to prevent applying rarity on craft
     }
 
     [HarmonyReversePatch, HarmonyPatch(nameof(CollectibleObject.GetHeldItemInfo))]

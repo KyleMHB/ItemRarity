@@ -1,8 +1,0 @@
-{
-  "ingredients": [
-    { "type": "item", "code": "game:flint", "quantity": 5 },
-    { "type": "item", "code": "game:stone", "quantity": 10 }
-  ],
-  "shapeless": true,
-  "output": { "type": "item", "code": "itemrarity:toolkit-tier1", "quantity": 1 }
-}

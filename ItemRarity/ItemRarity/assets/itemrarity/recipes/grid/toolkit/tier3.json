@@ -1,8 +1,0 @@
-{
-  "ingredients": [
-    { "type": "item", "code": "game:ingot-bronze", "quantity": 2 },
-    { "type": "item", "code": "game:metalparts", "quantity": 4 }
-  ],
-  "shapeless": true,
-  "output": { "type": "item", "code": "itemrarity:toolkit-tier3", "quantity": 1 }
-}
