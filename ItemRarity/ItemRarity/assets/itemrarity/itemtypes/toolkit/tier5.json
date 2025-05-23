@@ -1,0 +1,33 @@
+{
+  "code": "itemrarity:toolkit-tier5",
+  "class": "Item",
+  "variantgroups": [ { "code": "type", "states": ["steel"] } ],
+  "shape": { "base": "game:item/tool/steel/hammer-parts" },
+  "textures": { "steel": { "base": "game:block/metal/ingot/steel" } },
+  "creativeinventory": { "general": ["*"], "items": ["*"], "itemrarity": ["*"] },
+  "attributes": {
+    "handbook": {
+      "groupBy": ["toolkit-tier5"]
+    }
+  },
+  "behaviors": [
+    { "name": "ApplyRarity" }
+  ],
+  "guiTransform": {
+    "translation": { "x": 0, "y": 1, "z": 0 },
+    "rotation": { "x": 150, "y": -42, "z": 0 },
+    "origin": { "x": 0.5, "y": 0, "z": 0.5 },
+    "scale": 1.4
+  },
+  "fpHandTransform": {
+    "translation": { "x": 0, "y": 0, "z": 0 },
+    "rotation": { "x": 25, "y": 157, "z": -5 }
+  },
+  "tpHandTransform": {
+    "translation": { "x": -0.65, "y": -0.5, "z": -0.5 },
+    "rotation": { "x": -65, "y": 10, "z": -110 },
+    "scale": 0.8
+  },
+  "name": "Steel Age Toolkit",
+  "desc": "A powerful toolkit for applying rare to unique rarity. Made from steel and temporal parts."
+}

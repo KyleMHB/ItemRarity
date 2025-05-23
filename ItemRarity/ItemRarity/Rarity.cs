@@ -90,6 +90,58 @@ public static class Rarity
         return (first.Key, first.Value);
     }
 
+    /// <summary>
+    /// Returns a random rarity based on the provided rarity weights.
+    /// </summary>
+    /// <param name="rarityWeights">A dictionary where keys are rarity strings and values are their corresponding weights.</param>
+    /// <param name="api">The ICoreAPI instance, used for logging.</param>
+    /// <returns>A tuple containing the key and value of the randomly selected rarity configuration.</returns>
+    public static ItemRarityInfos GetRandomRarityFromWeights(Dictionary<string, float> rarityWeights, ICoreAPI api)
+    {
+        if (rarityWeights == null || !rarityWeights.Any())
+        {
+            api?.Logger.Warning("[ItemRarity] Rarity weights dictionary is null or empty. Cannot select a rarity.");
+            return ModCore.Config[string.Empty]; // Return default/empty rarity info
+        }
+
+        var totalWeight = rarityWeights.Values.Sum();
+        if (totalWeight <= 0)
+        {
+            api?.Logger.Warning("[ItemRarity] Total weight of rarities is zero or negative. Cannot select a rarity.");
+            return ModCore.Config[string.Empty]; // Return default/empty rarity info
+        }
+
+        var randomValue = Random.Shared.NextDouble() * totalWeight;
+        var cumulativeWeight = 0f;
+
+        foreach (var pair in rarityWeights)
+        {
+            if (pair.Value <= 0) continue; // Skip non-positive weights
+
+            cumulativeWeight += pair.Value;
+            if (randomValue < cumulativeWeight)
+            {
+                return ModCore.Config[pair.Key];
+            }
+        }
+
+        // Fallback: This should ideally not be reached if there are positive weights and totalWeight > 0.
+        // It could be reached if all weights are zero, or due to floating-point inaccuracies with many small weights.
+        api?.Logger.Warning("[ItemRarity] Failed to select a rarity based on weights (e.g., all weights zero or floating point issue), returning first valid rarity as fallback.");
+        
+        // Try to return the first rarity with a positive weight, if any
+        foreach (var pair in rarityWeights)
+        {
+            if (pair.Value > 0)
+            {
+                return ModCore.Config[pair.Key];
+            }
+        }
+        
+        // If all weights are zero or negative, return the first one from the original list or default
+        return ModCore.Config[rarityWeights.First().Key];
+    }
+
     public static ItemRarityInfos SetRandomRarity(ItemStack itemStack)
     {
         var rarity = GetRandomRarity();

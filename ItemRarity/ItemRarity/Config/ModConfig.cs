@@ -9,6 +9,7 @@ namespace ItemRarity.Config;
 public sealed class ModConfig
 {
     public Dictionary<string, ItemRarityConfig> Rarities { get; init; } = new();
+    public List<ToolkitTierConfig> Toolkits { get; init; } = new();
     
     public ItemRarityInfos this[string rarity]
     {
@@ -24,7 +25,7 @@ public sealed class ModConfig
 
     public static ModConfig GetDefaultConfig()
     {
-        return new()
+        var defaultConfig = new ModConfig
         {
             Rarities = new()
             {
@@ -154,7 +155,96 @@ public sealed class ModConfig
                         Effects = ["Thor"]
                     }
                 }
+            },
+            Toolkits = new List<ToolkitTierConfig>
+            {
+                new ToolkitTierConfig
+                {
+                    TierName = "Stone Age Kit",
+                    OutputCode = "itemrarity:toolkit-tier1",
+                    ToolInputs = new List<ToolInput>
+                    {
+                        new ToolInput { ItemCode = "game:flint", Quantity = 5 },
+                        new ToolInput { ItemCode = "game:stone", Quantity = 10 }
+                    },
+                    PossibleRarities = new List<string> { "common", "uncommon" },
+                    RarityWeights = new Dictionary<string, float>
+                    {
+                        { "common", 75 },
+                        { "uncommon", 25 }
+                    }
+                },
+                new ToolkitTierConfig
+                {
+                    TierName = "Copper Age Kit",
+                    OutputCode = "itemrarity:toolkit-tier2",
+                    ToolInputs = new List<ToolInput>
+                    {
+                        new ToolInput { ItemCode = "game:ingot-copper", Quantity = 2 },
+                        new ToolInput { ItemCode = "game:resin", Quantity = 3 }
+                    },
+                    PossibleRarities = new List<string> { "uncommon", "rare" },
+                    RarityWeights = new Dictionary<string, float>
+                    {
+                        { "uncommon", 70 },
+                        { "rare", 30 }
+                    }
+                },
+                new ToolkitTierConfig
+                {
+                    TierName = "Bronze Age Kit",
+                    OutputCode = "itemrarity:toolkit-tier3",
+                    ToolInputs = new List<ToolInput>
+                    {
+                        new ToolInput { ItemCode = "game:ingot-bronze", Quantity = 2 },
+                        new ToolInput { ItemCode = "game:metalparts", Quantity = 4 }
+                    },
+                    PossibleRarities = new List<string> { "uncommon", "rare", "epic", "legendary" },
+                    RarityWeights = new Dictionary<string, float>
+                    {
+                        { "uncommon", 60 },
+                        { "rare", 25 },
+                        { "epic", 10 },
+                        { "legendary", 5 }
+                    }
+                },
+                new ToolkitTierConfig
+                {
+                    TierName = "Iron Age Kit",
+                    OutputCode = "itemrarity:toolkit-tier4",
+                    ToolInputs = new List<ToolInput>
+                    {
+                        new ToolInput { ItemCode = "game:ingot-iron", Quantity = 2 },
+                        new ToolInput { ItemCode = "game:metalparts", Quantity = 6 }
+                    },
+                    PossibleRarities = new List<string> { "rare", "epic", "legendary" },
+                    RarityWeights = new Dictionary<string, float>
+                    {
+                        { "rare", 60 },
+                        { "epic", 30 },
+                        { "legendary", 10 }
+                    }
+                },
+                new ToolkitTierConfig
+                {
+                    TierName = "Steel Age Kit",
+                    OutputCode = "itemrarity:toolkit-tier5",
+                    ToolInputs = new List<ToolInput>
+                    {
+                        new ToolInput { ItemCode = "game:ingot-steel", Quantity = 2 },
+                        new ToolInput { ItemCode = "game:gear-temporal", Quantity = 1 }
+                    },
+                    PossibleRarities = new List<string> { "rare", "epic", "legendary", "unique" },
+                    RarityWeights = new Dictionary<string, float>
+                    {
+                        { "rare", 50 },
+                        { "epic", 25 },
+                        { "legendary", 20 },
+                        { "unique", 5 }
+                    }
+                }
             }
         };
+        return defaultConfig;
     }
 }

@@ -1,0 +1,8 @@
+{
+  "ingredients": [
+    { "type": "item", "code": "game:ingot-steel", "quantity": 2 },
+    { "type": "item", "code": "game:gear-temporal", "quantity": 1 }
+  ],
+  "shapeless": true,
+  "output": { "type": "item", "code": "itemrarity:toolkit-tier5", "quantity": 1 }
+}

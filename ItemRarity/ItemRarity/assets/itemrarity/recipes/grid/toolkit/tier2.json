@@ -1,0 +1,8 @@
+{
+  "ingredients": [
+    { "type": "item", "code": "game:ingot-copper", "quantity": 2 },
+    { "type": "item", "code": "game:resin", "quantity": 3 }
+  ],
+  "shapeless": true,
+  "output": { "type": "item", "code": "itemrarity:toolkit-tier2", "quantity": 1 }
+}

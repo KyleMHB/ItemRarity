@@ -1,0 +1,8 @@
+{
+  "ingredients": [
+    { "type": "item", "code": "game:ingot-iron", "quantity": 2 },
+    { "type": "item", "code": "game:metalparts", "quantity": 6 }
+  ],
+  "shapeless": true,
+  "output": { "type": "item", "code": "itemrarity:toolkit-tier4", "quantity": 1 }
+}
